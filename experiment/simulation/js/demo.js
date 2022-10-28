@@ -68,7 +68,7 @@ export function fillStates() {
                 if (i !== j && j !== k && i !== k) {
                     const key = i.toString() + "-" + j.toString() + "-" + k.toString();
                     let tempState = {};
-                    if (dist[i][k] + dist[k][j] < dist[i][j]) {
+                    if (dist[i][k] + dist[k][j] < dist[i][j] && dist[i][k]+dist[k][j] < 1e5) {
                         tempState["change"] = true;
                         dist[i][j] = dist[i][k] + dist[k][j];
                     } else {
@@ -97,7 +97,7 @@ function restoreColor(arrayColor, nodeColor) {
 function changeColor(src, middle, dest, middleColor) {
     cy.nodes('[id = "' + src + '"]').style('background-color', "violet");
     cy.nodes('[id = "' + middle + '"]').style('background-color', middleColor);
-    cy.nodes('[id = "' + dest + '"]').style('background-color', "blue");
+    cy.nodes('[id = "' + dest + '"]').style('background-color', "orange");
     document.getElementById("dist" + src.toString() + dest.toString()).style.fill= middleColor;
 }
 
@@ -128,7 +128,7 @@ function run(key) {
 }
 
 export function restartSimulation() {
-    for (let iter = 0; iter < numNodes - 1; iter++) {
+    for (let iter = 1; iter <= numNodes; iter++) {
         document.getElementById("iteration" + iter.toString()).classList.remove("is-active")
     }
     pointer = 0;

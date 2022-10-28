@@ -16,11 +16,22 @@ export function showInfo(){
 
 export function refreshComponents(){
     observ.innerHTML = "";
-    removeEdges();
     makeGraph();
     addEdges();
-    document.getElementById("iteration0").click();
     fillStates();
+    document.getElementById("iteration1").click();
+}
+
+export function updateTable(distArray){
+    for(let i=1;i<=numNodes;i++){
+        for(let j=1;j<=numNodes;j++){
+            if(distArray[i-1][j-1]<1e5){
+                document.getElementById("text"+i.toString()+j.toString()).value = distArray[i-1][j-1];
+            }else{
+                document.getElementById("text"+i.toString()+j.toString()).value = "INF";
+            }
+        }
+    }
 }
 
 export function changeColorGraph(edgeColor) {
@@ -45,24 +56,40 @@ export function areEqual(array1, array2) {
 }
 
 export function fillStates() {
-    let d = Array(numNodes).fill(1e7);
-    let p = Array(numNodes).fill(-1);
-    d[0] = 0;
-    p[0] = 0;
-    for (let i = 0; i < numNodes; ++i) {
+    let dist = new Array(numNodes);
+    for (let i = 0; i < numNodes; i++) {
+        dist[i] = new Array(numNodes);
+        for (let j = 0; j < numNodes; j++) {
+            dist[i][j] = 1000000;
+        }
+        dist[i][i] = 0;
+    }
+    for (let edge of graph) {
+        let src = edge.source - 1;
+        let dest = edge.target - 1;
+        dist[src][dest] = edge.weight;
+    }
+    let intialState = {}
+    intialState["distance"] = [];
+    for (let i = 0; i < numNodes; i++) {
+        intialState["distance"].push(dist[i].slice());
+    }
+    states[0] = intialState;
+    for (let k = 0; k < numNodes; k++) {
         let tempState = {};
-        let selectedEdges = [];
-        for (const edge of graph) {
-            const edgeId = edge.source.toString() + ":" + edge.target.toString();
-            if (d[edge.source] + edge.weight < d[edge.target] && d[edge.source] + edge.weight < 1e6) {
-                d[edge.target] = d[edge.source] + edge.weight;
-                p[edge.target] = edge.source;
-                selectedEdges.push(edgeId);
+        for (let i = 0; i < numNodes; i++) {
+            for (let j = 0; j < numNodes; j++) {
+                if (i !== j && j !== k && i !== k) {
+                    if (dist[i][k] + dist[k][j] < dist[i][j] && dist[i][k]+dist[k][j] < 1e5) {
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                    }
+                }
             }
         }
-        tempState["selectedEdges"] = selectedEdges;
-        tempState["distance"] = d.slice();
-        tempState["parent"] = p.slice();
-        states[i] = tempState;
+        tempState["distance"] = [];
+        for (let i = 0; i < numNodes; i++) {
+            tempState["distance"].push(dist[i].slice());
+        }
+        states[k+1] = tempState;
     }
 }

@@ -1,7 +1,7 @@
 'use strict';
 import { states, numNodes } from "./randomGraph.js";
 import { cy } from "./displayGraph.js";
-import { refreshComponents, changeColorGraph, colorPreviousEdges, areEqual, showInfo } from "./helper.js";
+import { refreshComponents, changeColorGraph, colorPreviousEdges, areEqual, showInfo, updateTable } from "./helper.js";
 
 const observ = document.getElementById("observations");
 
@@ -9,94 +9,99 @@ window.refreshWorkingArea = refreshWorkingArea;
 window.openIteration = openIteration;
 window.submitIteration = submitIteration;
 window.showInfo = showInfo;
-
-let currentIteration = 0;
-let selectedIteration = 0;
+window.inputBox = inputBox;
+let currentIteration = 1;
+let selectedIteration = 1;
 let edgeList = [];
 
-export function pastIteration(iteration) {
-    const key = iteration;
-    let distance = states[key]["distance"];
-    let parent = states[key]["parent"];
-    for (let i = 0; i < numNodes; i++) {
-        if (distance[i] < 1e6) {
-            document.getElementById("text" + i.toString()).innerHTML = distance[i].toString();
-            document.getElementById("parent" + i.toString()).innerHTML = parent[i].toString();
-        }
+function inputBox(val, id) {
+    // check if val is either a number or INF
+    let inputId = document.getElementById(id);
+    if (val !== "INF" && val !== "inf" && isNaN(val)) {
+        inputId.classList.add("highlight")
+        setTimeout(function () { inputId.classList.remove("highlight") }, 5000);
+        document.getElementById(id).value = "";
+        observ.innerHTML = "Please enter a number or INF";
     }
 }
 
-
 function submitIteration() {
-    if (currentIteration > 5) {
+    if (currentIteration > 4) {
         return;
     }
-    // check if the elemenst in edgeList are same as the states[currentIteration].selectedEdges
-    if (areEqual(edgeList, states[currentIteration].selectedEdges)) {
-        observ.style.color = "green";
-        observ.innerHTML = "Correct Answer";
-        currentIteration++;
-        edgeList = [];
-        changeColorGraph("lightgreen");
-        if (currentIteration <= 5)
-            document.getElementById("iteration" + currentIteration.toString()).click();
-    } else {
-        observ.style.color = "red";
-        observ.innerHTML = "Incorrect Answer"
+    let distance = [];
+    for (let i = 1; i <= numNodes; i++) {
+        distance[i - 1] = [];
+        for (let j = 1; j <= numNodes; j++) {
+            if(document.getElementById("text" + i.toString() + j.toString()).value === ""){
+                document.getElementById("text" + i.toString() + j.toString()).classList.add("highlight");
+                setTimeout(function () { document.getElementById("text" + i.toString() + j.toString()).classList.remove("highlight") }, 5000);
+                observ.innerHTML = "Please fill all the boxes";
+                return;
+            }
+            else if (document.getElementById("text" + i.toString() + j.toString()).value === "INF" || (document.getElementById("text" + i.toString() + j.toString()).value === "inf")) {
+                distance[i - 1][j - 1] = 1e6;
+            } else {
+                distance[i - 1][j - 1] = parseInt(document.getElementById("text" + i.toString() + j.toString()).value);
+            }
+        }
     }
+    let flag = true;
+    // compare the distance array with the states array
+    for (let i = 1; i <= numNodes; i++) {
+        for (let j = 1; j <= numNodes; j++) {
+            if (distance[i - 1][j - 1] !== states[selectedIteration]["distance"][i - 1][j - 1]) {
+                document.getElementById("text" + i.toString() + j.toString()).classList.add("incorrect-value")
+                setTimeout(function () { document.getElementById("text" + i.toString() + j.toString()).classList.remove("incorrect-value") }, 5000);
+                flag = false;
+            }
+        }
+    }
+
+    if (flag) {
+        observ.innerHTML = "Correct!";
+        observ.style.color = "green";
+        currentIteration++;
+        selectedIteration++;
+        if (currentIteration <= 4) {
+            document.getElementById("iteration" + currentIteration.toString()).click();
+        }
+    } else {
+        observ.innerHTML = "Highlighted boxes are incorrect, please try again";
+        observ.style.color = "red";
+    }
+
 }
 
 function openIteration(evt, iterNumber) {
     if (currentIteration >= parseInt(iterNumber[iterNumber.length - 1])) {
         selectedIteration = parseInt(iterNumber[iterNumber.length - 1])
         // remove classname is-active from id iteration0 to iteration 5
-        for(let iter = 0 ;iter <numNodes-1;iter++){
+        for (let iter = 1; iter <= numNodes; iter++) {
             document.getElementById("iteration" + iter.toString()).classList.remove("is-active")
         }
-        evt.currentTarget.className += " is-active";
-        changeColorGraph("lightgreen");
-        if (currentIteration > parseInt(iterNumber[iterNumber.length - 1])) {
-            pastIteration(iterNumber[iterNumber.length - 1]);
-            colorPreviousEdges(states[iterNumber[iterNumber.length - 1]].selectedEdges)
-        } else if (currentIteration !== 0) {
-            pastIteration((currentIteration - 1).toString())
+        // add classname is-active to the selected iteration
+        document.getElementById(iterNumber).classList.add("is-active");
+        if (currentIteration > selectedIteration) {
+            updateTable(states[selectedIteration]["distance"]);
+        }else{
+            updateTable(states[currentIteration-1]["distance"]);
         }
-        if(selectedIteration === 5){
+        if(currentIteration===4){
             document.getElementById("submit").innerHTML = "Submit";
-        }
-        else{
+        }else{
             document.getElementById("submit").innerHTML = "Next Iteration";
         }
+
     }
 }
 
 
 export function refreshWorkingArea() {
-    for (let i = 0; i < numNodes; i++) {
-        if (i === 0) {
-            document.getElementById("text" + i.toString()).textContent = "0";
-            document.getElementById("parent" + i.toString()).textContent = "0";
-        } else {
-            document.getElementById("text" + i.toString()).textContent = "INF";
-            document.getElementById("parent" + i.toString()).textContent = "-1";
-        }
-    }
-    currentIteration = 0;
-    selectedIteration = 0;
+    currentIteration = 1;
+    selectedIteration = 1;
     edgeList = [];
     refreshComponents();
+    updateTable(states["0"].distance);
 }
-cy.on('tap', 'edge', function (evt) {
-    if (currentIteration === selectedIteration) {
-        let edge = evt.target;
-        if (edgeList.includes(edge.id())) {
-            edgeList.splice(edgeList.indexOf(edge.id()), 1);
-            edge.style('line-color', 'lightgreen');
-        }
-        else {
-            edgeList.push(edge.id());
-            edge.style('line-color', 'red');
-        }
-    }
-});
 refreshWorkingArea();

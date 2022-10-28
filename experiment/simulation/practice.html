@@ -21,34 +21,25 @@
 				<div class="v-content instruction-list">
 					<ul style="list-style: disc;">
 						<li>Node 0 is chosen as source.</li>
-                        <li>Select the edges that are going to be updated in the given iteration. Click on <b>Next Iteration</b> button to validate the answer of the current iteration.</li>
-						<li>The user is supposed to move sequentially, they can move back to the previous iteration to check the previous submission</li>
-                        <li>Click on the <b>Reset</b> button to generate a new graph.</li>
-                        <li>Order of edges on left window show the order in which the edges are selected.</li>
-                        <li>Edges selected appear in red color.</li>
+						<li>Select the edges that are going to be updated in the given iteration. Click on <b>Next
+								Iteration</b> button to validate the answer of the current iteration.</li>
+						<li>The user is supposed to move sequentially, they can move back to the previous iteration to
+							check the previous submission</li>
+						<li>Click on the <b>Reset</b> button to generate a new graph.</li>
+						<li>Order of edges on left window show the order in which the edges are selected.</li>
+						<li>Edges selected appear in red color.</li>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="columns is-centered is-flex-direction-row is-flex-wrap-wrap is-align-content-start">
-		<div class="column is-2-desktop is-12-tablet is-12-mobile">
-			<div class="v-datalist-container" style="height:100%">
-				<div class="v-datalist-title">Order Of Edges</div>
-				<div class="v-datalist-row toolbar-item-list" id="toolbar"></div>
-			</div>
-		</div>
-		<div class="column is-6-desktop is-12-tablet is-12-mobile center-content">
+		<div class="column is-8-desktop is-12-tablet is-12-mobile center-content">
 			<div class='practice-main-container'>
 				<div class="practice-top-container">
 					<div class="column centered-div">
 						<div class="v-tabs tabs-size">
 							<ul>
-								<li id="iteration0" onclick="openIteration(event, 'iteration0')">
-									<a>
-										Iter 0
-									</a>
-								</li>
 								<li id="iteration1" onclick="openIteration(event, 'iteration1')">
 									<a>
 										Iter 1
@@ -69,67 +60,55 @@
 										Iter 4
 									</a>
 								</li>
-								<li id="iteration5" onclick="openIteration(event, 'iteration5')">
-									<a>
-										Iter 5
-									</a>
-								</li>
 							</ul>
 						</div>
 					</div>
 				</div>
 				<!-- Left Sidebar Area -->
 				<div class='practice-array-container'>
-					<svg class="svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="120%"
-						viewBox="0 0 420 325 ">
-						<text x="-50" y="95" class="text-demo">Node</text>
-						<text x="-50" y="155" class="text-demo">Distance</text>
-						<text x="-50" y="215" class="text-demo">Parent</text>
-						<rect id="x0" x="60" y="60" width="60" height="60" class="array-demo" />
-						<rect id="x1" x="120" y="60" width="60" height="60" class="array-demo" />
-						<rect id="x2" x="180" y="60" width="60" height="60" class="array-demo" />
-						<rect id="x3" x="240" y="60" width="60" height="60" class="array-demo" />
-						<rect id="x4" x="300" y="60" width="60" height="60" class="array-demo" />
-						<rect id="x5" x="360" y="60" width="60" height="60" class="array-demo" />
-						<rect id="x6" x="420" y="60" width="60" height="60" class="array-demo" />
-						<rect id="y0" x="60" y="120" width="60" height="60" class="array-demo" />
-						<rect id="y1" x="120" y="120" width="60" height="60" class="array-demo" />
-						<rect id="y2" x="180" y="120" width="60" height="60" class="array-demo" />
-						<rect id="y3" x="240" y="120" width="60" height="60" class="array-demo" />
-						<rect id="y4" x="300" y="120" width="60" height="60" class="array-demo" />
-						<rect id="y5" x="360" y="120" width="60" height="60" class="array-demo" />
-						<rect id="y6" x="420" y="120" width="60" height="60" class="array-demo" />
-						<rect id="z0" x="60" y="180" width="60" height="60" class="array-demo" />
-						<rect id="z1" x="120" y="180" width="60" height="60" class="array-demo" />
-						<rect id="z2" x="180" y="180" width="60" height="60" class="array-demo" />
-						<rect id="z3" x="240" y="180" width="60" height="60" class="array-demo" />
-						<rect id="z4" x="300" y="180" width="60" height="60" class="array-demo" />
-						<rect id="z5" x="360" y="180" width="60" height="60" class="array-demo" />
-						<rect id="z6" x="420" y="180" width="60" height="60" class="array-demo" />
-						<text x="85" y="95" class="array-text">0</text>
-						<text x="145" y="95" class="array-text">1</text>
-						<text x="205" y="95" class="array-text">2</text>
-						<text x="265" y="95" class="array-text">3</text>
-						<text x="325" y="95" class="array-text">4</text>
-						<text x="385" y="95" class="array-text">5</text>
-						<text x="445" y="95" class="array-text">6</text>
-						<text id="text0" x="85" y="155" class="array-text">0</text>
-						<text id="text1" x="135" y="155" class="array-text">INF</text>
-						<text id="text2" x="195" y="155" class="array-text">INF</text>
-						<text id="text3" x="255" y="155" class="array-text">INF</text>
-						<text id="text4" x="315" y="155" class="array-text">INF</text>
-						<text id="text5" x="375" y="155" class="array-text">INF</text>
-						<text id="text6" x="435" y="155" class="array-text">INF</text>
-						<text id="parent0" x="85" y="215" class="array-text">0</text>
-						<text id="parent1" x="135" y="215" class="array-text">-1</text>
-						<text id="parent2" x="195" y="215" class="array-text">-1</text>
-						<text id="parent3" x="255" y="215" class="array-text">-1</text>
-						<text id="parent4" x="315" y="215" class="array-text">-1</text>
-						<text id="parent5" x="375" y="215" class="array-text">-1</text>
-						<text id="parent6" x="435" y="215" class="array-text">-1</text>
-						<text x="500" y="215" class="array-text tooltip" onclick="showInfo()" >&#9432;</text>
-					</svg>
-					<span class="tooltiptext">Array Representing distance and parent of nodes</span>
+					<!-- make a table for 6*6 with heading 0 1 2 3 4 5 -->
+					<table align="center" style="margin-top: 5%;">
+						<thead>
+							<tr>
+								<th></th>
+								<th>1</th>
+								<th>2</th>
+								<th>3</th>
+								<th>4</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>1</th>
+								<td><input id="text11" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="text12" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="text13" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="text14" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+							</tr>
+							<tr>
+								<th>2</th>
+								<td><input id="text21" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="text22" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="text23" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="text24" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+							</tr>
+							<tr>
+								<th>3</th>
+								<td><input id="text31" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="text32" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="text33" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="text34" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+							</tr>
+							<tr>
+								<th>4</th>
+								<td><input id="text41" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="text42" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="text43" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="text44" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+							</tr>
+						</tbody>
+					</table>
+					<span class="tooltiptext">Array ij represents the distnace from the node i to node j</span>
 				</div>
 
 				<!-- Main Content Area -->
@@ -137,8 +116,10 @@
 				</div>
 				<div class="practice-bottom-container">
 					<div class="columns centered-div">
-						<button class="v-button button-margin" id="submit" onclick="submitIteration()">Next Iteration</button>
-						<button class="v-button button-margin" id="restart" onclick="refreshWorkingArea()">Reset</button>
+						<button class="v-button button-margin" id="submit" onclick="submitIteration()">Next
+							Iteration</button>
+						<button class="v-button button-margin" id="restart"
+							onclick="refreshWorkingArea()">Reset</button>
 					</div>
 				</div>
 			</div>
