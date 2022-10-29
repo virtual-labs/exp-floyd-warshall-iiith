@@ -1,94 +1,96 @@
 'use strict';
-import { states, graph,numNodes } from "./randomGraph.js";
-import { cy } from "./displayGraph.js";
-import { refreshComponents, changeColorGraph, colorPreviousEdges,areEqual } from "./helper.js";
+import { states, numNodes } from "./randomGraph.js";
+import { refreshComponents, areEqual, showInfo, updateTableExercise } from "./helper.js";
+import { removeEdges } from "./showEdges.js";
+
 const observ = document.getElementById("observations");
-window.refreshWorkingArea = refreshWorkingArea;
+
+window.refreshWorkingArea = restartSimulation;
 window.openIteration = openIteration;
 window.submitIteration = submitIteration;
-let selectedIteration = 0;
-let iterEdgeList = {};
+window.showInfo = showInfo;
+window.inputBox = inputBox;
+let selectedIteration = 1;
+let distanceArray = {};
 
-function createDistanceAndParentTable() {
-    let d = Array(numNodes).fill(1e7);
-    let p = Array(numNodes).fill(-1);
-    d[0] = 0;
-    p[0] = 0;
-    for (let i = 0; i < numNodes-1; i++) {
-        for (const edge of graph) {
-            const edgeId = edge.source.toString() + ":" + edge.target.toString();
-            if (iterEdgeList[i].includes(edgeId) && d[edge.source] + edge.weight < 1e6) {
-                d[edge.target] = d[edge.source] + edge.weight;
-                p[edge.target] = edge.source;
+export function initDistanceArray() {
+    for (let iter = 1; iter <= numNodes; iter++) {
+        let tempArray = [];
+        for (let i = 1; i <= numNodes; i++) {
+            tempArray[i - 1] = [];
+            for (let j = 1; j <= numNodes; j++) {
+                tempArray[i - 1][j - 1] = states[0]["distance"][i - 1][j - 1];
             }
         }
+        distanceArray[iter] = tempArray;
     }
-    let tableBody = "";
-    for (let node = 0; node < numNodes; node++) {
-        if (d[node] < 1e6) {
-            tableBody += `<tr><th>${node}</th><th>${d[node]}</th><th>${p[node]}</th></tr>`
+}
+function inputBox(val, id) {
+    // check if val is either a number or INF
+    let inputId = document.getElementById(id);
+    if (val !== "INF" && val !== "inf" && isNaN(val)) {
+        inputId.classList.add("highlight")
+        setTimeout(function () { inputId.classList.remove("highlight") }, 5000);
+        document.getElementById(id).value = "";
+        observ.innerHTML = "Please enter a number or INF";
+    } else {
+        if (val === "INF" || val === "inf") {
+            distanceArray[selectedIteration][parseInt(id[4]) - 1][parseInt(id[5]) - 1] = 1e6;
         } else {
-            tableBody += `<tr><th>${node}</th><th>INF</th><th>-1</th></tr>`
+            distanceArray[selectedIteration][parseInt(id[4]) - 1][parseInt(id[5]) - 1] = parseInt(val);
         }
     }
-    document.getElementById("table-body").innerHTML = tableBody;
 }
 
 function submitIteration() {
-    document.getElementById("table-body").innerHTML = "";
-    for (let iter = 0; iter < numNodes-1; iter++) {
-        if (!areEqual(iterEdgeList[iter], states[iter].selectedEdges)) {
-            observ.innerHTML = "<span>&#10007;</span> Fail";
-            observ.className = "failure-message";
-            createDistanceAndParentTable();
-            return;
+    for(let iter = 2; iter<=numNodes; iter++){
+        for(let i = 1;i<=numNodes;i++){
+            for(let j = 1;j<=numNodes;j++){
+                distanceArray[iter][i-1][j-1] = Math.min(distanceArray[iter][i-1][j-1], distanceArray[iter-1][i-1][j-1]);
+            }
         }
     }
-    observ.innerHTML = "<span>&#10003;</span> Success";
-    observ.className = "success-message";
-    let tableBody = "";
-    for (let node = 0; node < numNodes; node++) {
-        if (states[5].distance[node] < 1e6) {
-            tableBody += `<tr><th>${node}</th><th>${states[5].distance[node]}</th><th>${states[5].parent[node]}</th></tr>`
-        } else {
-            tableBody += `<tr><th>${node}</th><th>INF</th><th>-1</th></tr>`
-        }
-    }
-    document.getElementById("table-body").innerHTML = tableBody;
 
+
+
+    for (let iter = 1; iter <= numNodes; iter++) {
+        for (let i = 1; i <= numNodes; i++) {
+            if (!areEqual(distanceArray[iter][i - 1], states[iter]["distance"][i - 1])) {
+                observ.innerHTML = "Error in iteration " + iter.toString() + ". Please try again.";
+                observ.style.color = "red";
+                return;
+            }
+        }
+    }
+    observ.innerHTML = "Correct!";
+    observ.style.color = "green";
 }
 
 function openIteration(evt, iterNumber) {
     selectedIteration = parseInt(iterNumber[iterNumber.length - 1])
     // remove classname is-active from id iteration0 to iteration 5
-    for (let iter = 0; iter < numNodes-1; iter++) {
+    for (let iter = 1; iter <= numNodes; iter++) {
         document.getElementById("iteration" + iter.toString()).classList.remove("is-active")
     }
-    evt.currentTarget.className += " is-active";
-    changeColorGraph("lightgreen");
-    colorPreviousEdges(iterEdgeList[selectedIteration]);
+    // add classname is-active to the selected iteration
+    document.getElementById(iterNumber).classList.add("is-active");
+    if(selectedIteration === 1){
+        distanceArray[selectedIteration] = updateTableExercise(distanceArray[selectedIteration], states[selectedIteration - 1]["distance"]);
+    } else {
+        distanceArray[selectedIteration] = updateTableExercise(distanceArray[selectedIteration], distanceArray[selectedIteration - 1]);
+    }
+    console.log(distanceArray[selectedIteration]);
 }
 
-
+export function restartSimulation() {
+    removeEdges();
+    refreshWorkingArea();
+}
 
 export function refreshWorkingArea() {
-    selectedIteration = 0;
-    document.getElementById("table-body").innerHTML = "";
-    iterEdgeList = {};
-    for (let i = 0; i < numNodes-1; i++) {
-        iterEdgeList[i] = [];
-    }
+    selectedIteration = 1;
     refreshComponents();
+    initDistanceArray();
+    document.getElementById("iteration1").click();
 }
-cy.on('tap', 'edge', function (evt) {
-    let edge = evt.target;
-    if (iterEdgeList[selectedIteration].includes(edge.id())) {
-        iterEdgeList[selectedIteration].splice(iterEdgeList[selectedIteration].indexOf(edge.id()), 1);
-        edge.style('line-color', 'lightgreen');
-    }
-    else {
-        iterEdgeList[selectedIteration].push(edge.id());
-        edge.style('line-color', 'red');
-    }
-});
 refreshWorkingArea();

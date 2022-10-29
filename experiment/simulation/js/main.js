@@ -2,17 +2,17 @@
 import { states, numNodes } from "./randomGraph.js";
 import { cy } from "./displayGraph.js";
 import { refreshComponents, changeColorGraph, colorPreviousEdges, areEqual, showInfo, updateTable } from "./helper.js";
+import { removeEdges } from "./showEdges.js";
 
 const observ = document.getElementById("observations");
 
-window.refreshWorkingArea = refreshWorkingArea;
+window.refreshWorkingArea = restartSimulation;
 window.openIteration = openIteration;
 window.submitIteration = submitIteration;
 window.showInfo = showInfo;
 window.inputBox = inputBox;
 let currentIteration = 1;
 let selectedIteration = 1;
-let edgeList = [];
 
 function inputBox(val, id) {
     // check if val is either a number or INF
@@ -96,12 +96,16 @@ function openIteration(evt, iterNumber) {
     }
 }
 
+export function restartSimulation() {
+    removeEdges();
+    refreshWorkingArea();
+}
 
 export function refreshWorkingArea() {
     currentIteration = 1;
     selectedIteration = 1;
-    edgeList = [];
     refreshComponents();
     updateTable(states["0"].distance);
+    document.getElementById("iteration1").click();
 }
 refreshWorkingArea();

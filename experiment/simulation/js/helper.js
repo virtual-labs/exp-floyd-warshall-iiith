@@ -1,5 +1,4 @@
 'use strict';
-import { removeEdges } from "./showEdges.js";
 import { cy,addEdges } from "./displayGraph.js";
 import { states, makeGraph, numNodes, graph, numEdges } from "./randomGraph.js";
 const observ = document.getElementById("observations")
@@ -15,11 +14,10 @@ export function showInfo(){
 }
 
 export function refreshComponents(){
-    observ.innerHTML = "";
+    document.getElementById("observations").innerHTML = "";
     makeGraph();
     addEdges();
     fillStates();
-    document.getElementById("iteration1").click();
 }
 
 export function updateTable(distArray){
@@ -32,6 +30,22 @@ export function updateTable(distArray){
             }
         }
     }
+}
+
+export function updateTableExercise(distArray,prevArray){
+    for(let i=1;i<=numNodes;i++){
+        for(let j=1;j<=numNodes;j++){
+            if(distArray[i-1][j-1]>prevArray[i-1][j-1]){
+                distArray[i-1][j-1] = prevArray[i-1][j-1];
+            }
+            if(distArray[i-1][j-1]<1e5){
+                document.getElementById("text"+i.toString()+j.toString()).value = distArray[i-1][j-1];
+            }else{
+                document.getElementById("text"+i.toString()+j.toString()).value = "INF";
+            }
+        }
+    }
+    return distArray;
 }
 
 export function changeColorGraph(edgeColor) {

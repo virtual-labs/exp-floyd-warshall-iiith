@@ -70,6 +70,7 @@ export function fillStates() {
                     let tempState = {};
                     if (dist[i][k] + dist[k][j] < dist[i][j] && dist[i][k]+dist[k][j] < 1e5) {
                         tempState["change"] = true;
+                        tempState["prev"] = dist[i][j];
                         dist[i][j] = dist[i][k] + dist[k][j];
                     } else {
                         tempState["change"] = false;
@@ -118,7 +119,11 @@ function run(key) {
     let middle = parseInt(key.split("-")[2]) + 1;
     showCurrentIteration(middle);
     if (state["change"]) {
-        observ.innerHTML = "The distance between the nodes " + src + " and " + dest + " is greater than the distance between the nodes " + src + " and " + middle + " plus the distance between the nodes " + middle + " and " + dest + ". So, the distance between the nodes " + src + " and " + dest + " is updated to " + distance[src - 1][middle - 1] + " + " + distance[middle - 1][dest - 1] + " = " + distance[src - 1][dest - 1] + ".";
+        if(state["prev"] < 1e5){
+            observ.innerHTML = "The distance between the nodes " + src + " and " + dest + " is greater than the distance between the nodes " + src + " and " + middle + " plus the distance between the nodes " + middle + " and " + dest + ". So, the distance between the nodes " + src + " and " + dest + " is changed from "+ state["prev"]+ " to " + distance[src - 1][middle - 1] + " + " + distance[middle - 1][dest - 1] + " = " + distance[src - 1][dest - 1] + ".";
+        }else{
+            observ.innerHTML = "The distance between the nodes " + src + " and " + dest + " is greater than the distance between the nodes " + src + " and " + middle + " plus the distance between the nodes " + middle + " and " + dest + ". So, the distance between the nodes " + src + " and " + dest + " is changed from ∞ to " + distance[src - 1][middle - 1] + " + " + distance[middle - 1][dest - 1] + " = " + distance[src - 1][dest - 1] + ".";
+        }
         changeColor(src, middle, dest, "red");
     } else {
         observ.innerHTML = "The distance between the nodes " + src + " and " + dest + " is less than the distance between the nodes " + src + " and " + middle + " plus the distance between the nodes " + middle + " and " + dest + ". So, the distance between the nodes " + src + " and " + dest + " remains unchanged.";
