@@ -6,6 +6,7 @@ import { removeEdges } from "./showEdges.js";
 const observ = document.getElementById("observations");
 
 window.refreshWorkingArea = restartSimulation;
+window.restart = restart;
 window.openIteration = openIteration;
 window.submitIteration = submitIteration;
 window.showInfo = showInfo;
@@ -55,10 +56,12 @@ function submitIteration() {
 
     for (let iter = 1; iter <= numNodes; iter++) {
         for (let i = 1; i <= numNodes; i++) {
-            if (!areEqual(distanceArray[iter][i - 1], states[iter]["distance"][i - 1])) {
-                observ.innerHTML = "Error in iteration " + iter.toString() + ". Please try again.";
-                observ.style.color = "red";
-                return;
+            for(let j=1; j<=numNodes; j++){
+                if(distanceArray[iter][i-1][j-1] !== states[iter]["distance"][i-1][j-1]){
+                    observ.style.color = "red";
+                    observ.innerHTML = "The values in the table from iteration " + iter.toString() + " are incorrect";
+                    return;
+                }
             }
         }
     }
@@ -85,6 +88,13 @@ function openIteration(evt, iterNumber) {
 export function restartSimulation() {
     removeEdges();
     refreshWorkingArea();
+}
+
+function restart() {
+    selectedIteration = 1;
+    distanceArray = {};
+    initDistanceArray();
+    document.getElementById("iteration1").click();
 }
 
 export function refreshWorkingArea() {

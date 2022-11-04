@@ -22,9 +22,9 @@ function updateDistanceTable(distance) {
     for (let i = 1; i <= numNodes; i++) {
         for (let j = 1; j <= numNodes; j++) {
             if (distance[i - 1][j - 1] < 1e5) {
-                document.getElementById("dist" + i.toString() + j.toString() + "text").innerHTML = distance[i - 1][j - 1];
+                document.getElementById("disttext" + i.toString() + j.toString()).value = distance[i - 1][j - 1];
             }else{
-                document.getElementById("dist" + i.toString() + j.toString() + "text").innerHTML = "∞";
+                document.getElementById("disttext" + i.toString() + j.toString()).value = "INF";
             }
         }
     }
@@ -90,16 +90,17 @@ function restoreColor(arrayColor, nodeColor) {
     cy.nodes().style('background-color', nodeColor);
     for (let i = 1; i <= numNodes; i++) {
         for (let j = 1; j <= numNodes; j++) {
-            document.getElementById("dist"+i.toString()+j.toString()).style.fill= arrayColor;
+            document.getElementById("disttext"+i.toString()+j.toString()).classList.remove("correct-update");
+            document.getElementById("disttext"+i.toString()+j.toString()).classList.remove("incorrect-update");
         }
     }
 }
 
-function changeColor(src, middle, dest, middleColor) {
+function changeColor(src, middle, dest, middleColor,update) {
     cy.nodes('[id = "' + src + '"]').style('background-color', "violet");
     cy.nodes('[id = "' + middle + '"]').style('background-color', middleColor);
     cy.nodes('[id = "' + dest + '"]').style('background-color', "orange");
-    document.getElementById("dist" + src.toString() + dest.toString()).style.fill= middleColor;
+    document.getElementById("disttext" + src.toString() + dest.toString()).classList.add(update);
 }
 
 function showCurrentIteration(node) {
@@ -122,12 +123,12 @@ function run(key) {
         if(state["prev"] < 1e5){
             observ.innerHTML = "The distance between the nodes " + src + " and " + dest + " is greater than the distance between the nodes " + src + " and " + middle + " plus the distance between the nodes " + middle + " and " + dest + ". So, the distance between the nodes " + src + " and " + dest + " is changed from "+ state["prev"]+ " to " + distance[src - 1][middle - 1] + " + " + distance[middle - 1][dest - 1] + " = " + distance[src - 1][dest - 1] + ".";
         }else{
-            observ.innerHTML = "The distance between the nodes " + src + " and " + dest + " is greater than the distance between the nodes " + src + " and " + middle + " plus the distance between the nodes " + middle + " and " + dest + ". So, the distance between the nodes " + src + " and " + dest + " is changed from ∞ to " + distance[src - 1][middle - 1] + " + " + distance[middle - 1][dest - 1] + " = " + distance[src - 1][dest - 1] + ".";
+            observ.innerHTML = "The distance between the nodes " + src + " and " + dest + " is greater than the distance between the nodes " + src + " and " + middle + " plus the distance between the nodes " + middle + " and " + dest + ". So, the distance between the nodes " + src + " and " + dest + " is changed from Infinity to " + distance[src - 1][middle - 1] + " + " + distance[middle - 1][dest - 1] + " = " + distance[src - 1][dest - 1] + ".";
         }
-        changeColor(src, middle, dest, "red");
+        changeColor(src, middle, dest, "red","correct-update");
     } else {
         observ.innerHTML = "The distance between the nodes " + src + " and " + dest + " is less than the distance between the nodes " + src + " and " + middle + " plus the distance between the nodes " + middle + " and " + dest + ". So, the distance between the nodes " + src + " and " + dest + " remains unchanged.";
-        changeColor(src, middle, dest, "yellow");
+        changeColor(src, middle, dest, "yellow","incorrect-update");
     }
     updateDistanceTable(distance);
 }
@@ -178,7 +179,16 @@ export function previousSimulation() {
     }
 }
 
+function disableInput(){
+    for(let i=1;i<=numNodes;i++){
+        for(let j=1;j<=numNodes;j++){
+            document.getElementById("disttext"+i.toString()+j.toString()).disabled = true;
+        }
+    }
+}
+
 export function refreshWorkingArea() {
+    disableInput();
     makeGraph();
     addEdges();
     fillStates();

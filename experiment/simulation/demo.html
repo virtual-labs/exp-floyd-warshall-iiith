@@ -63,60 +63,47 @@
                 </div>
                 <!-- Left Sidebar Area -->
                 <div class='practice-array-container'>
-                    <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="120%"
-                        viewBox="0 0 420 325 ">
-                        <rect x="50" y="50" width="60" height="50" class="array-demo" />
-                        <rect x="50" y="90" width="60" height="40" class="array-demo" />
-                        <rect x="50" y="130" width="60" height="40" class="array-demo" />
-                        <rect x="50" y="170" width="60" height="40" class="array-demo" />
-                        <rect x="50" y="210" width="60" height="40" class="array-demo" />
-                        <rect x="110" y="50" width="60" height="50" class="array-demo" />
-                        <rect id="dist11" x="110" y="90" width="60" height="40" class="array-demo" />
-                        <rect id="dist21" x="110" y="130" width="60" height="40" class="array-demo" />
-                        <rect id="dist31" x="110" y="170" width="60" height="40" class="array-demo" />
-                        <rect id="dist41" x="110" y="210" width="60" height="40" class="array-demo" />
-                        <rect x="170" y="50" width="60" height="50" class="array-demo" />
-                        <rect id="dist12" x="170" y="90" width="60" height="40" class="array-demo" />
-                        <rect id="dist22" x="170" y="130" width="60" height="40" class="array-demo" />
-                        <rect id="dist32" x="170" y="170" width="60" height="40" class="array-demo" />
-                        <rect id="dist42" x="170" y="210" width="60" height="40" class="array-demo" />
-                        <rect x="230" y="50" width="60" height="50" class="array-demo" />
-                        <rect id="dist13" x="230" y="90" width="60" height="40" class="array-demo" />
-                        <rect id="dist23" x="230" y="130" width="60" height="40" class="array-demo" />
-                        <rect id="dist33" x="230" y="170" width="60" height="40" class="array-demo" />
-                        <rect id="dist43" x="230" y="210" width="60" height="40" class="array-demo" />
-                        <rect x="290" y="50" width="60" height="50" class="array-demo" />
-                        <rect id="dist14" x="290" y="90" width="60" height="40" class="array-demo" />
-                        <rect id="dist24" x="290" y="130" width="60" height="40" class="array-demo" />
-                        <rect id="dist34" x="290" y="170" width="60" height="40" class="array-demo" />
-                        <rect id="dist44" x="290" y="210" width="60" height="40" class="array-demo" />
-                        <text x="70" y="120" class="array-text">1</text>
-                        <text x="70" y="160" class="array-text">2</text>
-                        <text x="70" y="200" class="array-text">3</text>
-                        <text x="70" y="240" class="array-text">4</text>
-                        <text x="130" y="80" class="array-text">1</text>
-                        <text x="190" y="80" class="array-text">2</text>
-                        <text x="250" y="80" class="array-text">3</text>
-                        <text x="310" y="80" class="array-text">4</text>
-                        <text id="dist11text" x="120" y="120" class="array-text">INF</text>
-                        <text id="dist21text" x="120" y="160" class="array-text">INF</text>
-                        <text id="dist31text" x="120" y="200" class="array-text">INF</text>
-                        <text id="dist41text" x="120" y="240" class="array-text">INF</text>
-                        <text id="dist12text" x="180" y="120" class="array-text">INF</text>
-                        <text id="dist22text" x="180" y="160" class="array-text">INF</text>
-                        <text id="dist32text" x="180" y="200" class="array-text">INF</text>
-                        <text id="dist42text" x="180" y="240" class="array-text">INF</text>
-                        <text id="dist13text" x="240" y="120" class="array-text">INF</text>
-                        <text id="dist23text" x="240" y="160" class="array-text">INF</text>
-                        <text id="dist33text" x="240" y="200" class="array-text">INF</text>
-                        <text id="dist43text" x="240" y="240" class="array-text">INF</text>
-                        <text id="dist14text" x="300" y="120" class="array-text">INF</text>
-                        <text id="dist24text" x="300" y="160" class="array-text">INF</text>
-                        <text id="dist34text" x="300" y="200" class="array-text">INF</text>
-                        <text id="dist44text" x="300" y="240" class="array-text">INF</text>
-						<text x="400" y="215" class="array-text tooltip" onclick="showInfo()" >&#9432;</text>
-                    </svg>
-					<span class="tooltiptext">Array ij represents the distnace from the node i to node j</span>
+                    <table align="center" style="margin-top: 5%;">
+						<thead>
+							<tr>
+								<th></th>
+								<th>1</th>
+								<th>2</th>
+								<th>3</th>
+								<th>4</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>1</th>
+								<td><input id="disttext11" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="disttext12" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="disttext13" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="disttext14" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+							</tr>
+							<tr>
+								<th>2</th>
+								<td><input id="disttext21" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="disttext22" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="disttext23" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="disttext24" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+							</tr>
+							<tr>
+								<th>3</th>
+								<td><input id="disttext31" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="disttext32" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="disttext33" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="disttext34" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+							</tr>
+							<tr>
+								<th>4</th>
+								<td><input id="disttext41" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="disttext42" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="disttext43" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+								<td><input id="disttext44" type="text" maxlength="4" onchange="inputBox(this.value,this.id)"></td>
+							</tr>
+						</tbody>
+					</table>
                 </div>
 
                 <!-- Main Content Area -->

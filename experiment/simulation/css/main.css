@@ -55,6 +55,7 @@
 input{
   font-size: 15px;
   width: 125px;
+  font-weight: 600;
 }
 table {
   border-collapse: collapse;
@@ -86,6 +87,16 @@ tbody tr:nth-child(even) {
 .incorrect-value{
   border: red 4px solid;
   background-color: rgb(253, 193, 193);
+}
+
+.correct-update{
+  border: red 3px solid;
+  background-color: rgb(253, 193, 193);
+}
+
+.incorrect-update{
+  border: yellow 3px solid;
+  background-color: rgb(252, 253, 193);
 }
 
 @media screen and (max-width: 700px) {
