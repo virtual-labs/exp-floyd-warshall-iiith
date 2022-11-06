@@ -1,29 +1,16 @@
 'use strict';
 import { states, numNodes } from "./randomGraph.js";
-import { cy } from "./displayGraph.js";
-import { refreshComponents, changeColorGraph, colorPreviousEdges, areEqual, showInfo, updateTable } from "./helper.js";
-import { removeEdges } from "./showEdges.js";
-
+import { refreshComponents, updateTable, inputBox } from "./helper.js";
+import { removeEdges } from "./displayGraph.js";
 const observ = document.getElementById("observations");
 
-window.refreshWorkingArea = restartSimulation;
+window.newGraph = newGraph;
 window.openIteration = openIteration;
 window.submitIteration = submitIteration;
-window.showInfo = showInfo;
 window.inputBox = inputBox;
 let currentIteration = 1;
 let selectedIteration = 1;
 
-function inputBox(val, id) {
-    // check if val is either a number or INF
-    let inputId = document.getElementById(id);
-    if (val !== "INF" && val !== "inf" && isNaN(val)) {
-        inputId.classList.add("highlight")
-        setTimeout(function () { inputId.classList.remove("highlight") }, 5000);
-        document.getElementById(id).value = "";
-        observ.innerHTML = "Please enter a number or INF";
-    }
-}
 
 function submitIteration() {
     if (currentIteration > 4) {
@@ -76,11 +63,9 @@ function submitIteration() {
 function openIteration(evt, iterNumber) {
     if (currentIteration >= parseInt(iterNumber[iterNumber.length - 1])) {
         selectedIteration = parseInt(iterNumber[iterNumber.length - 1])
-        // remove classname is-active from id iteration0 to iteration 5
         for (let iter = 1; iter <= numNodes; iter++) {
             document.getElementById("iteration" + iter.toString()).classList.remove("is-active")
         }
-        // add classname is-active to the selected iteration
         document.getElementById(iterNumber).classList.add("is-active");
         if (currentIteration > selectedIteration) {
             updateTable(states[selectedIteration]["distance"]);
@@ -96,7 +81,7 @@ function openIteration(evt, iterNumber) {
     }
 }
 
-export function restartSimulation() {
+export function newGraph() {
     removeEdges();
     refreshWorkingArea();
 }

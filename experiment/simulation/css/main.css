@@ -12,22 +12,6 @@
   padding: 10px;
 }
 
-.edge-component {
-  width: 100px;
-  height: 45px;
-  border-radius: 0.75em;
-  border: 0.2rem solid black;
-  margin: 0.5rem 0.5rem;
-  font-weight: bold;
-  font-size: 1.25rem;
-  text-align: center;
-  padding-top: 2%;
-  color: "black";
-  background-color: rgb(202, 252, 202);
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
 .button-margin{
   margin-left: 1.25%;
   margin-right: 1.25%;
@@ -37,19 +21,6 @@
 .tabs-size{
   font-size: 15px;
   font-weight: bold;
-}
-
-.tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  font-size: 15px;
 }
 
 input{
@@ -100,19 +71,8 @@ tbody tr:nth-child(even) {
 }
 
 @media screen and (max-width: 700px) {
-  .edge-component {
-    width: 60px;
-    height: 30px;
-    font-size: 0.75rem;
-    padding-top: 1%;
-    background-size: 100%;
-  }
   .tabs-size{
     font-size: 9px;
-  }
-  .tooltiptext{
-    width: 60px;
-    top: 70%;
   }
   .button-margin{
     margin-left: 1%;

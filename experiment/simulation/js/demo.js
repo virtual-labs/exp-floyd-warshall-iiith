@@ -1,12 +1,11 @@
 'use strict';
-import { graph, makeGraph, states, numEdges, numNodes } from "./randomGraph.js";
+import { graph, makeGraph, states, numNodes } from "./randomGraph.js";
 import { addEdges, cy } from "./displayGraph.js";
-import { showInfo } from "./helper.js";
 import {removeEdges} from "./showEdges.js";
+
 window.nextSimulation = nextSimulation;
 window.previousSimulation = previousSimulation;
-window.restartSimulation = restartSimulation;
-window.showInfo = showInfo;
+window.newGraph = newGraph;
 window.refreshWorkingArea = refreshWorkingArea;
 
 const observ = document.getElementById("observations");
@@ -47,7 +46,6 @@ function statesLabel() {
 export function fillStates() {
     console.log(graph);
     statesLabel();
-    // floyd warshall algorithm
     let dist = new Array(numNodes);
     for (let i = 0; i < numNodes; i++) {
         dist[i] = new Array(numNodes);
@@ -86,7 +84,7 @@ export function fillStates() {
     }
 }
 
-function restoreColor(arrayColor, nodeColor) {
+function restoreColor(nodeColor) {
     cy.nodes().style('background-color', nodeColor);
     for (let i = 1; i <= numNodes; i++) {
         for (let j = 1; j <= numNodes; j++) {
@@ -111,7 +109,7 @@ function showCurrentIteration(node) {
 }
 
 function run(key) {
-    restoreColor("rgb(34, 153, 238)", "pink");
+    restoreColor("pink");
     console.log(key, states[key]);
     let state = states[key];
     let distance = state["distance"];
@@ -133,7 +131,7 @@ function run(key) {
     updateDistanceTable(distance);
 }
 
-export function restartSimulation() {
+export function newGraph() {
     for (let iter = 1; iter <= numNodes; iter++) {
         document.getElementById("iteration" + iter.toString()).classList.remove("is-active")
     }
@@ -142,7 +140,7 @@ export function restartSimulation() {
     stateKeys = [];
     removeEdges();
     observ.innerHTML = EMPTY;
-    restoreColor("rgb(34, 153, 238)", "pink");
+    restoreColor("pink");
     refreshWorkingArea();
 }
 

@@ -1,5 +1,4 @@
 import { graph } from "./randomGraph.js";
-import { showEdge } from "./showEdges.js";
 export let cy = cytoscape({
     container: document.getElementById('diagram'),
     elements: [
@@ -43,6 +42,13 @@ export function addEdges() {
     // change poistion of label of edge 4:2
     cy.edges('[id = "4:2"]').style('text-margin-x', -50);
 }
+
+export function removeEdges(){
+    cy.remove(cy.edges());
+    // empty graph
+    clearGraph();
+}
+
 // change the poistion of node 3
 cy.layout({ name: 'circle' }).run();
 cy.zoomingEnabled(false);

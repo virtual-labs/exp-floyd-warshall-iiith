@@ -1,23 +1,25 @@
 'use strict';
-import { cy,addEdges } from "./displayGraph.js";
-import { states, makeGraph, numNodes, graph, numEdges } from "./randomGraph.js";
-const observ = document.getElementById("observations")
+import { addEdges } from "./displayGraph.js";
+import { states, makeGraph, numNodes, graph } from "./randomGraph.js";
 
-export function showInfo(){
-    let info = document.getElementsByClassName("tooltiptext")[0];
-    if(info.style.visibility === "visible"){
-        info.style.visibility = "hidden";
-    }
-    else{
-        info.style.visibility = "visible";
-    }
-}
+const observ = document.getElementById("observations");
 
 export function refreshComponents(){
     document.getElementById("observations").innerHTML = "";
     makeGraph();
     addEdges();
-    fillStates();
+    fillStatesPracticeAndExercise();
+}
+
+export function inputBox(val, id) {
+    // check if val is either a number or INF
+    let inputId = document.getElementById(id);
+    if (val !== "INF" && val !== "inf" && isNaN(val)) {
+        inputId.classList.add("highlight")
+        setTimeout(function () { inputId.classList.remove("highlight") }, 5000);
+        document.getElementById(id).value = "";
+        observ.innerHTML = "Please enter a number or INF";
+    }
 }
 
 export function updateTable(distArray){
@@ -48,28 +50,8 @@ export function updateTableExercise(distArray,prevArray){
     return distArray;
 }
 
-export function changeColorGraph(edgeColor) {
-    cy.edges().style('line-color', edgeColor);
-}
 
-export function colorPreviousEdges(selectedEdges) {
-    selectedEdges.forEach((edgeId) => {
-        cy.edges('[id=\'' + edgeId + '\']').style('line-color', "red");
-    });
-}
-export function areEqual(array1, array2) {
-    if (array1.length === array2.length) {
-        return array1.every(element => {
-            if (array2.includes(element)) {
-                return true;
-            }
-            return false;
-        });
-    }
-    return false;
-}
-
-export function fillStates() {
+export function fillStatesPracticeAndExercise() {
     let dist = new Array(numNodes);
     for (let i = 0; i < numNodes; i++) {
         dist[i] = new Array(numNodes);
