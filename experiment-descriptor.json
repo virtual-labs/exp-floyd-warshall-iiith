@@ -57,7 +57,7 @@
         },
         {
             "unit-type": "task",
-            "label": "Further Readings/References",
+            "label": "References",
             "content-type": "text",
             "source": "references.md",
             "target": "references.html"

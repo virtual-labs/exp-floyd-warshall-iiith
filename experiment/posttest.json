@@ -50,7 +50,7 @@
       "explanations": {
         "d": "Since there is a negative cycle 0->1->2->0, hence the solution does not exist."
       },
-      "correctAnswer": "b",
+      "correctAnswer": "d",
       "difficulty": "intermediate"
     }
   ]
