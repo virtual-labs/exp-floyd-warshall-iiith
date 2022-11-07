@@ -1,7 +1,6 @@
 'use strict';
 import { graph, makeGraph, states, numNodes } from "./randomGraph.js";
-import { addEdges, cy } from "./displayGraph.js";
-import {removeEdges} from "./showEdges.js";
+import { addEdges, cy, removeEdges } from "./displayGraph.js";
 
 window.nextSimulation = nextSimulation;
 window.previousSimulation = previousSimulation;

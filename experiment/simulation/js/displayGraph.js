@@ -1,4 +1,5 @@
 import { graph } from "./randomGraph.js";
+import { clearGraph } from "./randomGraph.js";
 export let cy = cytoscape({
     container: document.getElementById('diagram'),
     elements: [

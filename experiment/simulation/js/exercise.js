@@ -1,7 +1,7 @@
 'use strict';
 import { states, numNodes } from "./randomGraph.js";
 import { refreshComponents, updateTableExercise, inputBox } from "./helper.js";
-import { removeEdges } from "./showEdges.js";
+import { removeEdges } from "./displayGraph.js";
 
 const observ = document.getElementById("observations");
 
