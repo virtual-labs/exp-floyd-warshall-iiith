@@ -2,19 +2,19 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "Q1. Is it possible to use Floyd Warshall algorithm to find transitive closure of a graph?",
+      "question": "Q1. Is it possible to use the Floyd Warshall algorithm to find transitive closure of a graph?",
       "answers": {
         "a": "Yes",
         "b": "No"
       },
       "explanations": {
-        "a" : "One of the way to find transitive closure of a graph is to use Floyd Warshall algorithm. Just assign weight of each edge as 1 and run Floyd Warshall algorithm."
+        "a" : "One of the ways to find transitive closure of a graph is to use the Floyd Warshall algorithm. Just assign the weight of each edge as 1 and run the Floyd Warshall algorithm."
       },
       "correctAnswer": "a",
       "difficulty": "intermediate"
     },
     {
-      "question": "Q2. We can use Floyd Warshall algorithm to detect negative weight cycles in a graph.",
+      "question": "Q2. We can use the Floyd Warshall algorithm to detect negative weight cycles in a graph.",
       "answers": {
         "a": "True",
         "b": "False"
@@ -34,7 +34,7 @@
         "d": "0"
       },
       "explanations": {
-        "b": "The shortest diatnce between node 0 and 3 is 1 if we use the path 0->1->2->3"
+        "b": "The shortest distance between node 0 and 3 is 1 if we use the path 0->1->2->3"
       },
       "correctAnswer": "b",
       "difficulty": "beginner"

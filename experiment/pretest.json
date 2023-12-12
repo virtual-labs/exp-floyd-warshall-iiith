@@ -2,7 +2,7 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "Q1. Floyd Warshall is better as compared to dijkstra's algorithm because: ",
+      "question": "Q1. The Floyd Warshall is better as compared to the Dijkstra's algorithm because: ",
       "answers": {
         "a": "It can handle negative edges",
         "b": "It can handle negative cycles",
@@ -10,13 +10,13 @@
         "d": "It has a lower time complexity"
       },
       "explanations": {
-        "b": "Floyd Warshall has more time complexity than dijkstra's algorithm but it can handle negative edges, the algorithm can't handle negative cycles."
+        "b": "The Floyd Warshall has more time complexity than the Dijkstra's algorithm but it can handle negative edges, the algorithm can't handle negative cycles."
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
     },
     {
-      "question": "Q2. Floyd warshall algorithm is used to find: ",
+      "question": "Q2. The Floyd warshall algorithm is used to find: ",
       "answers": {
         "a": "Minimum spanning tree",
         "b": "Single source shortest path",
@@ -25,13 +25,13 @@
 
       },
       "explanations": {
-        "c": "Floyd warshall algorithm is used to find all pair shortest path."
+        "c": "The Floyd warshall algorithm is used to find all pair shortest path."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
     },
     {
-      "question": "Q3.Floyd Warshall algorithm is: ",
+      "question": "Q3.The Floyd Warshall algorithm is: ",
       "answers": {
         "a": "Greedy algorithm",
         "b": "Dynamic programming algorithm",
@@ -39,7 +39,7 @@
         "d": "Backtracking algorithm"
       },
       "explanations": {
-        "b": "Floyd Warshall is a dynamic programming-based algorithm. The algorithm reduces the overlapping subproblems by storing the results of the subproblems in a distance table."
+        "b": "The Floyd Warshall is a dynamic programming-based algorithm. The algorithm reduces the overlapping subproblems by storing the results of the subproblems in a distance table."
       },
       "correctAnswer": "b",
       "difficulty": "beginner"
@@ -61,14 +61,14 @@
       "difficulty": "advanced"
     },
     {
-      "question": "Q5. The approach used in Floyd Warshall algorithm is: ",
+      "question": "Q5. The approach used in the Floyd Warshall algorithm is: ",
       "answers": {
         "a": "Top down approach",
         "b": "Bottom up approach",
         "c": "None of the above"
       },
       "explanations": {
-        "b": "The approach used in Floyd Warshall algorithm is bottom up approach.This approach uses the tabulation technique to implement the dynamic programming solution. It addresses the same problems as before, but without recursion"
+        "b": "The approach used in the Floyd Warshall algorithm is bottom up approach. This approach uses the tabulation technique to implement the dynamic programming solution. It addresses the same problems as before, but without recursion"
       },
       "correctAnswer": "b",
       "difficulty": "intermediate"
