@@ -2,38 +2,76 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "Q1. The Floyd Warshall is better as compared to the Dijkstra's algorithm because: ",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "It can handle negative edges",
+        "b": "It can handle negative cycles",
+        "c": "It can handle both negative edges and negative cycles",
+        "d": "It has a lower time complexity"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "b": "The Floyd Warshall has more time complexity than the Dijkstra's algorithm but it can handle negative edges, the algorithm can't handle negative cycles."
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "Q2. The Floyd warshall algorithm is used to find: ",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Minimum spanning tree",
+        "b": "Single source shortest path",
+        "c": "All pair shortest path",
+        "d": "Network Flow"
+
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "c": "The Floyd warshall algorithm is used to find all pair shortest path."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
+    },
+    {
+      "question": "Q3.The Floyd Warshall algorithm is: ",
+      "answers": {
+        "a": "Greedy algorithm",
+        "b": "Dynamic programming algorithm",
+        "c": "Divide and conquer algorithm",
+        "d": "Backtracking algorithm"
+      },
+      "explanations": {
+        "b": "The Floyd Warshall is a dynamic programming-based algorithm. The algorithm reduces the overlapping subproblems by storing the results of the subproblems in a distance table."
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Q4. In the given graph :<img src=\"./images/pretestq1.png \">",
+      "answers": {
+        "a": "There is negative cycle 4->0->2->4",
+        "b": "There is negative cycle 4->0->5->1->4",
+        "c": "There is negative cycle 4->5->1->4",
+        "d": "There are no negative cycles"
+      },
+      "explanations": {
+        "a": "The sum of edges 4->0 , 0->2 and 2->4 is 13 which is greater than 0. Thus it is not a negative cycle",
+        "b": "The sum of edges 4->0 , 0->5 , 5->1 and 1->4 is -1 which is less than 0. Thus it is a negative cycle",
+        "c": "The sum of edges 4->5 , 5->1 and 1->4 is 8 which is greater than 0. Thus it is not a negative cycle"
+      },
+      "correctAnswer": "b",
+      "difficulty": "advanced"
+    },
+    {
+      "question": "Q5. The approach used in the Floyd Warshall algorithm is: ",
+      "answers": {
+        "a": "Top down approach",
+        "b": "Bottom up approach",
+        "c": "None of the above"
+      },
+      "explanations": {
+        "b": "The approach used in the Floyd Warshall algorithm is bottom up approach. This approach uses the tabulation technique to implement the dynamic programming solution. It addresses the same problems as before, but without recursion"
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
     }
   ]
 }
