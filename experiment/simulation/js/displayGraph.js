@@ -53,3 +53,4 @@ export function removeEdges(){
 // change the poistion of node 3
 cy.layout({ name: 'circle' }).run();
 cy.zoomingEnabled(false);
+cy.panningEnabled(false);
